@@ -1,6 +1,7 @@
 package org.algorix.biblioteca;
 
 import org.algorix.biblioteca.dominio.service.ILibroService;
+import org.algorix.biblioteca.persistence.entity.Libro;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -44,5 +46,15 @@ public class BibliotecaApplication implements CommandLineRunner {
 		return opcion;
 	}
 
-	private int ejecutarOpciones(Scanner consola, int opcion)
+	private boolean ejecutarOpciones(Scanner consola, int opcion){
+		var salir = false;
+		switch (opcion) {
+			case 1 -> {
+				logger.info(sl+"Listado de libros"+sl);
+				List<Libro> libros = libroService.listarLibros();
+				libros.forEach(Libro -> logger.info(Libro.toString()+sl));
+			}
+		}
+		return salir;
+	}
 }
