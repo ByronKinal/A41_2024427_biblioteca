@@ -1,0 +1,43 @@
+package org.algorix.biblioteca.dominio.service;
+
+import org.algorix.biblioteca.persistence.crud.LibroCrud;
+import org.algorix.biblioteca.persistence.entity.Libro;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class LibroService implements ILibroService{
+
+    @Autowired
+    private LibroCrud crud;
+
+    @Override
+    public List<Libro> listarLibros() {
+        List<Libro> Libros = crud.findAll();
+        return Libros;
+    }
+
+    @Override
+    public Libro buscarLibroPorAutor(String autor) {
+        List<Libro> buscar = listarLibros();
+        for (Libro libro : buscar) {
+            if (libro.getAutor().equals(autor)) {
+                return libro;
+            }
+        }
+        return null;
+    }
+
+
+    @Override
+    public void guardarLibro(Libro libro) {
+        crud.save(libro);
+    }
+
+    @Override
+    public void eliminarLibro(Libro libro) {
+        crud.delete(libro);
+    }
+}
