@@ -11,6 +11,7 @@ import lombok.*;
 @EqualsAndHashCode
 
 public class Libro {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,6 +19,7 @@ public class Libro {
     private String titulo;
     private String autor;
     private String genero;
-    private Integer anioPublicacion;
+    private Integer cantidad;
+    private String ubicacion;
 
 }

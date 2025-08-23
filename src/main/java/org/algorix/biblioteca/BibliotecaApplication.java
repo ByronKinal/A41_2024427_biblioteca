@@ -29,7 +29,14 @@ public class BibliotecaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+        logger.info("++++++APLICACION DE BIBLIOTECA++++++");
+        var salir = false;
+        var consola = new Scanner(System.in);
+        while (!salir){
+            var opcion = menu(consola);
+            salir = ejecutarOpciones(consola,opcion);
+            logger.info(sl);
+        }
 	}
 
 	private int menu (Scanner consola){
@@ -54,6 +61,72 @@ public class BibliotecaApplication implements CommandLineRunner {
 				List<Libro> libros = libroService.listarLibros();
 				libros.forEach(Libro -> logger.info(Libro.toString()+sl));
 			}
+            case 2 -> {
+                logger.info(sl+"Buscar libro por autor"+sl);
+                logger.info("Ingrese el nombre del autor: ");
+                String autor = consola.nextLine();
+                Libro libro = libroService.buscarLibroPorAutor(autor);
+                if (libro != null) {
+                    logger.info("Libro encontrado: " + libro.toString());
+                } else {
+                    logger.error("No se encontro el libro del autor: " + autor);
+                }
+            }
+            case 3 -> {
+                logger.info(sl+"Agregar nuevo libro"+sl);
+                Libro libro = new Libro();
+                logger.info("Ingrese el titulo del libro: ");
+                libro.setTitulo(consola.nextLine());
+                logger.info("Ingrese el autor del libro: ");
+                libro.setAutor(consola.nextLine());
+                logger.info("Ingrese el genero del libro: ");
+                libro.setGenero(consola.nextLine());
+                logger.info("Ingrese la cantidad de libros: ");
+                libro.setCantidad(Integer.parseInt(consola.nextLine()));
+                logger.info("Ingrese la ubicacion del libro: ");
+                libro.setUbicacion(consola.nextLine());
+                libroService.guardarLibro(libro);
+                logger.info("Libro agregado correctamente: " + libro.toString());
+            }
+            case 4 -> {
+                logger.info(sl+"Modificar libro"+sl);
+                logger.info("Ingrese el ID del libro a modificar: ");
+                var id = Integer.parseInt(consola.nextLine());
+                Libro libro = libroService.buscarLibroPorId(id);
+                if (libro != null) {
+                    logger.info("Ingrese el nuevo titulo del libro: ");
+                    libro.setTitulo(consola.nextLine());
+                    logger.info("Ingrese el nuevo autor del libro: ");
+                    libro.setAutor(consola.nextLine());
+                    logger.info("Ingrese el nuevo genero del libro: ");
+                    libro.setGenero(consola.nextLine());
+                    logger.info("Ingrese la nueva cantidad de libros: ");
+                    libro.setCantidad(Integer.parseInt(consola.nextLine()));
+                    logger.info("Ingrese la nueva ubicacion del libro: ");
+                    libro.setUbicacion(consola.nextLine());
+                    libroService.guardarLibro(libro);
+                    logger.info("Libro modificado correctamente: " + libro.toString());
+                } else {
+                    logger.error("Libro no encontrado con ID: " + id);
+                }
+            }
+            case 5 -> {
+                logger.info(sl+"Eliminar libro"+sl);
+                logger.info("Ingrese el ID del libro a eliminar: ");
+                var id = Integer.parseInt(consola.nextLine());
+                Libro libro = libroService.buscarLibroPorId(id);
+                if (libro != null) {
+                    libroService.eliminarLibro(libro);
+                    logger.info("Libro eliminado correctamente: " + libro.toString());
+                } else {
+                    logger.error("Libro no encontrado con ID: " + id);
+                }
+            }
+            case 6 -> {
+                salir = true;
+                logger.info("Saliendo de la aplicacion...");
+            }
+            default -> logger.warn("Opcion no valida, por favor intente de nuevo.");
 		}
 		return salir;
 	}

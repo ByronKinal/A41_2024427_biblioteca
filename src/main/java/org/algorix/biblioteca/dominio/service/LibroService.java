@@ -30,6 +30,12 @@ public class LibroService implements ILibroService{
         return null;
     }
 
+    @Override
+    public Libro buscarLibroPorId(Integer id) {
+        Libro libro = crud.findById(id).orElse(null);
+        return libro;
+    }
+
 
     @Override
     public void guardarLibro(Libro libro) {
