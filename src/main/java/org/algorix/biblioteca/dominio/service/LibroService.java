@@ -5,6 +5,8 @@ import org.algorix.biblioteca.persistence.entity.Libro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,14 +22,15 @@ public class LibroService implements ILibroService{
     }
 
     @Override
-    public Libro buscarLibroPorAutor(String autor) {
+    public ArrayList<Libro> buscarLibroPorAutor(String autor) {
+        ArrayList<Libro> librosEncontrado = new ArrayList<>();
         List<Libro> buscar = listarLibros();
         for (Libro libro : buscar) {
-            if (libro.getAutor().equals(autor)) {
-                return libro;
+            if (libro.getAutor().equalsIgnoreCase(autor)) {
+                librosEncontrado.add(libro);
             }
         }
-        return null;
+        return librosEncontrado;
     }
 
     @Override

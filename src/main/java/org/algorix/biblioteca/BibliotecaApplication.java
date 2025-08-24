@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -62,12 +63,14 @@ public class BibliotecaApplication implements CommandLineRunner {
 				libros.forEach(Libro -> logger.info(Libro.toString()+sl));
 			}
             case 2 -> {
-                logger.info(sl+"Buscar libro por autor"+sl);
+                logger.info(sl+"Buscar libro por autor");
                 logger.info("Ingrese el nombre del autor: ");
                 String autor = consola.nextLine();
-                Libro libro = libroService.buscarLibroPorAutor(autor);
+                ArrayList<Libro> libro = libroService.buscarLibroPorAutor(autor);
                 if (libro != null) {
-                    logger.info("Libro encontrado: " + libro.toString());
+                    for(Libro l : libro) {
+                        logger.info("Libro encontrado: " + l);
+                    }
                 } else {
                     logger.error("No se encontro el libro del autor: " + autor);
                 }
