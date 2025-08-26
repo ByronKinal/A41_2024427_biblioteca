@@ -3,22 +3,18 @@ package org.algorix.biblioteca.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "libros")
+@Entity(name = "autor")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
 
-public class Libro {
+public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column
     private Integer id_autor;
-    private String titulo;
-    private String genero;
-    private Integer cantidad;
-    private String ubicacion;
-
+    @Column
+    private String nombre;
+    private String apellido;
 }

@@ -30,7 +30,7 @@ public class BibliotecaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-        logger.info("++++++APLICACION DE BIBLIOTECA++++++");
+        logger.info("++++++aplicacion de biblioteca++++++");
         var salir = false;
         var consola = new Scanner(System.in);
         while (!salir){
@@ -67,12 +67,8 @@ public class BibliotecaApplication implements CommandLineRunner {
                 logger.info("Ingrese el nombre del autor: ");
                 String autor = consola.nextLine();
                 ArrayList<Libro> libro = libroService.buscarLibroPorAutor(autor);
-                if (libro != null) {
-                    for(Libro l : libro) {
-                        logger.info("Libro encontrado: " + l);
-                    }
-                } else {
-                    logger.error("No se encontro el libro del autor: " + autor);
+                for(Libro l : libro) {
+                    logger.info("Libro encontrado: " + l);
                 }
             }
             case 3 -> {
@@ -81,7 +77,7 @@ public class BibliotecaApplication implements CommandLineRunner {
                 logger.info("Ingrese el titulo del libro: ");
                 libro.setTitulo(consola.nextLine());
                 logger.info("Ingrese el autor del libro: ");
-                libro.setAutor(consola.nextLine());
+                libro.setId_autor(Integer.parseInt(consola.nextLine()));
                 logger.info("Ingrese el genero del libro: ");
                 libro.setGenero(consola.nextLine());
                 logger.info("Ingrese la cantidad de libros: ");
@@ -100,7 +96,7 @@ public class BibliotecaApplication implements CommandLineRunner {
                     logger.info("Ingrese el nuevo titulo del libro: ");
                     libro.setTitulo(consola.nextLine());
                     logger.info("Ingrese el nuevo autor del libro: ");
-                    libro.setAutor(consola.nextLine());
+                    libro.setId_autor(Integer.parseInt(consola.nextLine()));
                     logger.info("Ingrese el nuevo genero del libro: ");
                     libro.setGenero(consola.nextLine());
                     logger.info("Ingrese la nueva cantidad de libros: ");
