@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Libreria 2024427</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form id="formulario-libros">
+                <!-- mensaja emergente -->
+                <p:growl id="mensaje_emergente" showDetails="true" />
+                <!-- barra de menus-->
+                <div class="card">
+                    <p:menubar>
+                        <p:menuitem value="Inicio" icon="pi pi-fw pi-user"
+                                    actionListener="#{indexController.cargarDatos}"/>
+                        <p:menuitem value="Nuevo cliente" icon="pi pi-fw pi-plus"
+                                    actionListener="#{librosController.agregarLibro}"
+                                    update=":formulario-modal:ventana-libro"
+                                    oncomplete="PF('ventanaModalLibro').show()"/>
+                    </p:menubar>
+                </div>
+                <!-- Tabla de libros-->
+                <div class="card">
+                    <p:dataTable value="#{librosController.libros}" var="libro" id="tabla-libros" widgetVar="tablaLibros">
+                        <!-- Encabezado-->
+                        <f:facet name="header">
+                            <div class="flex justify-content-center flex-wrap card-container yellow-container">
+                                <div class="flex aline-items-center
+                                            justify-content-center
+                                            w-20rem h-4rem
+                                            bg-yellow-500 font-bold
+                                            text-gray-900 border-round m-2">
+                                    <h3>Libros</h3>
+                                </div>
+                            </div>
+                        </f:facet>
+                        <!-- columnas de libro-->
+                        <p:column headerText="Código">
+                            <h:outputText value="#{libro.id}" />
+                        </p:column>
+                        <p:column headerText="Título">
+                            <h:outputText value="#{libro.titulo}" />
+                        </p:column>
+                        <p:column headerText="Autor">
+                            <h:outputText value="#{libro.id_autor}" />
+                        </p:column>
+                        <p:column headerText="Género">
+                            <h:outputText value="#{libro.genero}" />
+                        </p:column>
+                        <p:column headerText="Edad">
+                            <h:outputText value="#{libro.cantidad}" />
+                        </p:column>
+                        <p:column headerText="ubicacion">
+                            <h:outputText value="#{libro.ubicacion}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+            <h:form id="formulario-modal">
+                <p:dialog header="Detaller del libros" showEffect="fade"
+                          modal="true" widgetVar="ventanaModalLibro" responsive="true">
+                    <p:outputPanel id="ventana-libro" class="ui-fluid">
+                        <div class="field">
+                            <p:outputLabel for="titulo">Titulo:</p:outputLabel>
+                            <p:inputText id="titulo" required="true"
+                                         value="#{librosController.libroSeleccionado.titulo}"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="id_autor">IDAutor:</p:outputLabel>
+                            <p:inputText id="id_autor" required="true"
+                                         value="#{librosController.libroSeleccionado.id_autor}"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="genero">Genero:</p:outputLabel>
+                            <p:inputText id="genero" required="true"
+                                         value="#{librosController.libroSeleccionado.genero}"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="cantidad">cantidad:</p:outputLabel>
+                            <p:inputText id="cantidad" required="true"
+                                         value="#{librosController.libroSeleccionado.cantidad}"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="ubicacion">ubicacion:</p:outputLabel>
+                            <p:inputText id="ubicacion" required="true"
+                                         value="#{librosController.libroSeleccionado.ubicacion}"/>
+                        </div>
+
+                    </p:outputPanel>
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar" icon="pi pi-check"
+                                         class="ui-button-primary"
+                                         process="ventana-libro @this"
+                                         actionListener="#{librosController.guardarLibro}"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" class="ui-button-secondary"
+                                         onclick="PF('ventanaModalLibro').hide()" type="button"/>
+                    </f:facet>
+                </p:dialog>
+                <p:confirmDialog widgetVar="ventanaEliminarLibro" showEffect="fade"
+                                 width="300" message="¿Esta seguro de eliminar este cliente?"
+                                 header="Confirmacion de eliminacion" severity="warn">
+                    <p:commandButton value="Si" icon="pi pi-check" class="ui-button-primary"
+                                     process="@this"
+                                     actionListener="#{librosController.eliminarLibro}"
+                                     oncomplete="PF('ventanaEliminarLibro').hide()" />
+                    <p:commandButton value="No" icon="pi pi-times" class="ui-button-warning"
+                                     onclick="PF('ventanaEliminarLibro').hide()"
+                                     type="button"/>
+                </p:confirmDialog>
+            </h:form>
+        </div>
+    </h:body>
+</h:html>

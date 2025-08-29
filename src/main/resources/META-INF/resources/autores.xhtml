@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Libreria 2024427</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form id="formulario-autores">
+                <!-- mensaja emergente -->
+                <p:growl id="mensaje_emergente" showDetails="true" />
+                <!-- barra de menus-->
+                <div class="card">
+                    <p:menubar>
+                        <p:menuitem value="Inicio" icon="pi pi-fw pi-user"
+                                    actionListener="#{indexController.cargarDatos}"/>
+                        <p:menuitem value="Nuevo cliente" icon="pi pi-fw pi-plus"/>
+                    </p:menubar>
+                </div>
+                <!-- Tabla de libros-->
+                <div class="card">
+                    <p:dataTable value="#{autoresController.autores}" var="autor" id="tabla-autores" widgetVar="tablaAutores">
+                        <!-- Encabezado-->
+                        <f:facet name="header">
+                            <div class="flex justify-content-center flex-wrap card-container yellow-container">
+                                <div class="flex aline-items-center
+                                            justify-content-center
+                                            w-20rem h-4rem
+                                            bg-yellow-500 font-bold
+                                            text-gray-900 border-round m-2">
+                                    <h3>Autores</h3>
+                                </div>
+                            </div>
+                        </f:facet>
+                        <!-- columnas de libro-->
+                        <p:column headerText="Código">
+                            <h:outputText value="#{autor.id_autor}" />
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{autor.nombre}" />
+                        </p:column>
+                        <p:column headerText="Apellido">
+                            <h:outputText value="#{autor.apellido}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</h:html>

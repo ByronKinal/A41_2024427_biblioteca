@@ -15,8 +15,8 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
-    private Integer id_autor;
     private String titulo;
+    private Integer id_autor;
     private String genero;
     private Integer cantidad;
     private String ubicacion;

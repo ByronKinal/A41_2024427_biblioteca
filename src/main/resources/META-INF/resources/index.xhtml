@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Biblioteca</title>
+        <style>
+            body { font-family: Arial, sans-serif; background:#f5f7fa; margin:0; display:flex; flex-direction:column; align-items:center; }
+            h1 { margin-top:60px; color:#234; }
+            .botones { margin-top:40px; display:flex; gap:18px; flex-wrap:wrap; }
+            button { background:#1976d2; color:#fff; border:none; padding:14px 28px; border-radius:8px; font-size:15px; cursor:pointer; transition:background .2s; }
+            button:hover { background:#125a9c; }
+        </style>
+    </head>
+    <body>
+    <h1>Biblioteca</h1>
+    <div class="botones">
+        <button onclick="location.href='libros.xhtml'">Libros</button>
+        <button onclick="location.href='autores.xhtml'">Autores</button>
+    </div>
+    </body>
+</h:html>
